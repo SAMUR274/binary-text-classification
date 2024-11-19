@@ -1,12 +1,15 @@
-# Binary Text Classification
+first clone it 
 
-This project aims to perform binary text classification using embeddings and a neural network. We will classify text data (e.g., sentiment analysis or spam detection) using PyTorch.
+then u wanna run the following commands on your cmd 
+C:\Users\User\MachineLearning\Proejct>python -m venv venv  this creates a viurtual environment to give you the necessary libraries you would need for the project 
 
-## Project Structure
-- **data/**: Contains datasets (excluded from Git tracking).
-- **notebooks/**: Jupyter or Colab notebooks for experimentation.
-- **src/**: Source code for the model, training scripts, and utilities.
 
-## Requirements
-Install the required dependencies with:
+C:\Users\User\MachineLearning\Proejct>venv\Scripts\activate
+this would activate that VD(virtual d3esktop)
+ 
+(venv) C:\Users\User\MachineLearning\Proejct>pip install Flask scikit-learn pandas   notice how there is a "(venv)" means the virtaul network is successfully connected these are the command you need **pip install Flask scikit-learn pandas **
 
+(venv) C:\Users\User\MachineLearning\Proejct\DeployMLModel-Flask>python model.py   then head over to the following "DeployMLModel" directory to  access the files you wanna ruin the "python model.py"
+
+
+thanks
