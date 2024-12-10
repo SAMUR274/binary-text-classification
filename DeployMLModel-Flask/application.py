@@ -1,34 +1,40 @@
 from flask import Flask, request, render_template
-import pickle
+import joblib
 
-application = Flask(__name__)  # Initialize the Flask app
-model = pickle.load(open('emotion_model.pkl', 'rb'))  # Load the emotion classifier model
+# Initialize the Flask app
+app = Flask(__name__)
 
-# Emoji mapping based on emotions
+# Load model, vectorizer, and label encoder
+model = joblib.load("emotion_model.pkl")
+vectorizer = joblib.load("vectorizer.pkl")
+label_encoder = joblib.load("label_encoder.pkl")
+
+# Emoji map for emotions
 emoji_map = {
     "happy": "😊",
     "sad": "😢",
-    "neutral": "😐"
+    "anger": "😡",
+    "surprise": "😲",
+    "neutral": "😐",
+    "fear": "😱",
+    # Add more emotions as required
 }
 
-@application.route('/')
+@app.route('/')
 def home():
     return render_template('index.html')
 
-@application.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
-    '''
-    For rendering results on HTML GUI
-    '''
-    # Get text input from the form
-    text_input = request.form['text_input']
-    
+    # Get user input
+    user_input = request.form['text_input']
+    # Vectorize input
+    input_vec = vectorizer.transform([user_input])
     # Predict emotion
-    emotion = model.predict([text_input])[0]  # Get the predicted emotion
-    emoji = emoji_map.get(emotion, "❓")  # Default to a question mark if emotion is unknown
-
-    # Display the emotion with an emoji
+    prediction = model.predict(input_vec)
+    emotion = label_encoder.inverse_transform(prediction)[0]
+    emoji = emoji_map.get(emotion, "❓")
     return render_template('index.html', prediction_text=f'Emotion: {emotion} {emoji}')
 
 if __name__ == "__main__":
-    application.run(debug=True)
+    app.run(debug=True)
