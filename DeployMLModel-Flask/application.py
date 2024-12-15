@@ -15,7 +15,7 @@ emoji_map = {
     "sad": "😢",
     "anger": "😡",
     "surprise": "😲",
-    "neutral": "😐",
+    "neutral": "BRUHHHH",
     "fear": "😱",
     # Add more emotions as required
 }
