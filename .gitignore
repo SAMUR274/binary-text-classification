@@ -1,1 +1,5 @@
  
+
+DeployMLModel-Flask/emotion_model.pkl
+DeployMLModel-Flask/label_encoder.pkl
+DeployMLModel-Flask/vectorizer.pkl
