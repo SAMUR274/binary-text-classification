@@ -7,7 +7,7 @@ export default function HighlightedText({
   text,
   importantWords,
 }: HighlightedTextProps) {
-  // Split the text into words and highlight important words
+  
   const words = text.split(" ");
   const highlightedText = words.map((word, index) => {
     const isImportant = importantWords.includes(word.toLowerCase());

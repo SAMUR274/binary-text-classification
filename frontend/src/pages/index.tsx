@@ -11,6 +11,7 @@ interface ImportantWord {
 export default function Home() {
   const [theme, setTheme] = useState("dark");
   const [text, setText] = useState("");
+  const [analyzedText, setAnalyzedText] = useState<string>(""); // Fix for the text after submission
   const [prediction, setPrediction] = useState<string | null>(null);
   const [emoji, setEmoji] = useState<string | null>(null);
   const [importantWords, setImportantWords] = useState<ImportantWord[]>([]);
@@ -26,7 +27,7 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setShowAnalyzedText(false);
+    setShowAnalyzedText(false); // hide text when processing
     try {
       const response = await fetch("http://127.0.0.1:5000/predict", {
         method: "POST",
@@ -37,6 +38,7 @@ export default function Home() {
       setPrediction(data.prediction);
       setEmoji(data.emoji);
       setImportantWords(data.important_words || []);
+      setAnalyzedText(text);
       setTimeout(() => setShowAnalyzedText(true), 300);
     } catch (error) {
       console.error("Error:", error);
@@ -47,7 +49,7 @@ export default function Home() {
   };
 
   const renderHighlightedText = () => {
-    const words = text.split(" ");
+    const words = analyzedText.split(" ");
     return words.map((word, index) => {
       const foundWord = importantWords.find(
         (item) => item.word.toLowerCase() === word.toLowerCase()
@@ -87,7 +89,7 @@ export default function Home() {
       <header className="text-center mb-8">
         <h1 className="text-4xl font-bold">Emotion Classifier</h1>
         <p className="text-gray-600 dark:text-gray-400 mt-2">
-          Discover emotions and word significance.
+          Discover sentiment from your sentences.
         </p>
       </header>
 
@@ -114,7 +116,8 @@ export default function Home() {
         )}
       </div>
 
-      {text && importantWords.length > 0 && (
+      {/* Analyzed Text */}
+      {analyzedText && importantWords.length > 0 && (
         <div
           className={`mt-8 w-full max-w-2xl bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg transition-opacity duration-500 ${
             showAnalyzedText ? "opacity-100" : "opacity-0"
