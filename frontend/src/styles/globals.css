@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff; /* Light mode background */
+  --foreground: #000000; /* Light mode text */
+}
+
+.dark {
+  --background: #111827; /* Dark mode background (slate-900) */
+  --foreground: #f9fafb; /* Dark mode text (slate-50) */
+}
+
+body {
+  @apply bg-background text-foreground transition-colors duration-300;
+}
