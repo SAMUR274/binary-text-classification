@@ -37,7 +37,7 @@ This project is an **Emotion Classifier Web Application** that analyzes text inp
 - Node.js
 - Next.js 15.1.0
 - React.js
-- CSS/HTML for styling
+
 
 ---
 
