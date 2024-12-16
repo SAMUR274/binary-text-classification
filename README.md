@@ -56,7 +56,7 @@ Before running this project, make sure you have the following installed:
 ## Backend Setup
 Navigate to the backend folder:
 ```bash
-cd C:\Users\Varun G\Documents\GitHub\emotionclassifier\backend
+cd C:\Users\<User>\emotionclassifier\backend
 ```
 
 Install backend dependencies:
@@ -75,7 +75,7 @@ Backend is running at:
 ## Frontend Setup
 Navigate to the frontend folder:
 ```bash
-cd C:\Users\Varun G\Documents\GitHub\emotionclassifier\frontend
+cd C:\Users\<User>\emotionclassifier\frontend
 ```
 
 Install frontend dependencies:
