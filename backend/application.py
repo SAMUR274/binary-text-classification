@@ -14,16 +14,36 @@ label_encoder = joblib.load("label_encoder.pkl")
 
 # Emoji mapping
 emoji_map = {
-    "happy": "😊",
-    "sad": "😢",
-    "anger": "😡",
-    "surprise": "😲",
-    "neutral": "😐",
-    "fear": "😱",
     "admiration": "😍",
+    "amusement": "😂",
+    "anger": "😡",
+    "annoyance": "😒",
+    "approval": "👍",
+    "caring": "🤗",
+    "confusion": "🤔",
+    "curiosity": "🧐",
+    "desire": "🥰",
+    "disappointment": "😞",
+    "disapproval": "👎",
+    "disgust": "🤢",
+    "embarrassment": "😳",
+    "excitement": "🤩",
+    "fear": "😱",
+    "gratitude": "🙏",
+    "grief": "😭",
+    "joy": "😄",
+    "love": "❤️",
+    "nervousness": "😬",
+    "neutral": "😐",
+    "optimism": "🙂",
+    "pride": "🏆",
+    "realization": "💡",
+    "relief": "😌",
+    "remorse": "😔",
+    "sadness": "😢",
+    "shame": "😳",
+    "surprise": "😲",
 }
-
-
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -41,17 +61,27 @@ def predict():
     # Score words using TF-IDF vectorization
     feature_names = np.array(vectorizer.get_feature_names_out())
     word_importances = input_vec.toarray()[0] * vectorizer.idf_
+
+    # normalize it for standard calculation
+    if len(word_importances) > 0:
+        min_score = word_importances.min()
+        max_score = word_importances.max()
+        normalized_importances = (word_importances - min_score) / (max_score - min_score)
+    else:
+        normalized_importances = word_importances
+
+    # number of words to highlight based on length
     total_words = len(user_input.split())
     num_highlights = max(2, min(total_words // 5, 10))
 
-    confidence_threshold = 1.0 # change it as required
+    confidence_threshold = 0.2  # change it as required
 
     # TF-IDF vectorized scoring
-    top_indices = word_importances.argsort()[::-1]
+    top_indices = normalized_importances.argsort()[::-1]
     significant_words = [
-        {"word": feature_names[i], "score": round(word_importances[i], 2)}
+        {"word": feature_names[i], "score": round(normalized_importances[i], 2)}
         for i in top_indices
-        if word_importances[i] >= confidence_threshold
+        if normalized_importances[i] >= confidence_threshold
     ][:num_highlights]
 
     # response
