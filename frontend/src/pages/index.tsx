@@ -212,24 +212,31 @@ export default function Home() {
       {/* Form and Prediction */}
       <div className="w-full max-w-2xl bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
         <form onSubmit={handleSubmit} className="relative w-full">
-          <div className="relative">
+          <div className="relative w-full">
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
-              className="w-full p-4 border rounded-lg dark:bg-gray-700 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
-              rows={4}
+              placeholder="Enter your text here..."
+              className="w-full p-4 pb-12 border rounded-lg dark:bg-gray-700 dark:border-gray-600 resize-none overflow-hidden focus:outline-none transition-all duration-300"
+              rows={2}
+              style={{ minHeight: "80px" }}
+              onInput={(e) => {
+                const target = e.target as HTMLTextAreaElement;
+                target.style.height = "auto"; // Reset height to auto
+                target.style.height = target.scrollHeight + "px"; // Adjust height to content
+              }}
             />
             {/* Analyze Button */}
             <button
               type="submit"
-              className="absolute bottom-2 right-2 bg-transparent hover:bg-blue-500 text-blue-500 hover:text-white border border-blue-500 py-1 px-1 rounded-full flex items-center gap-2 transition-all duration-300"
+              className="absolute bottom-2 right-2 bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 py-1 px-1 rounded-full flex items-center gap-2 transition-all duration-300"
             >
-             <img
-  src="/images/arrow-tr.png"
-  alt="Analyze Icon"
-  className="w-5 h-5 opacity-80 hover:opacity-100 transition-opacity duration-300"
-  style={{ filter: "brightness(0) saturate(100%) invert(50%) sepia(100%) saturate(300%) hue-rotate(180deg)" }}
-/>
+              <img
+                src="/images/arrow-tr.png"
+                alt="Analyze Icon"
+                className="w-5 h-5 opacity-80 hover:opacity-100 transition-opacity duration-300"
+                style={{ filter: theme === "dark" ? "invert(1)" : "none" }}
+              />
             </button>
           </div>
         </form>
