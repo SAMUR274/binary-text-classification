@@ -1,4 +1,5 @@
 Emotion Classifier Web Application
+
 This project is an Emotion Classifier Web Application that analyzes text inputs and classifies them into specific emotional categories (e.g., "happy," "sad," "angry," etc.). The system uses machine learning with a Flask backend API for processing text predictions and a Next.js frontend for delivering an interactive user interface.
 
 Table of Contents
