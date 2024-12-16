@@ -21,6 +21,7 @@ export default function Home() {
     left: 0,
   });
   const [tooltipContent, setTooltipContent] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
   
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -54,6 +55,10 @@ export default function Home() {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
+  const handleModalToggle = () => {
+    setShowModal(!showModal);
+  };
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setShowAnalyzedText(false);
@@ -136,6 +141,17 @@ export default function Home() {
         </button>
       </div>
   
+      {/* Question Mark Button */}
+      <div className="absolute top-6 left-6">
+        <button
+          onClick={handleModalToggle}
+          className="w-10 h-10 rounded-full bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 transition text-2xl font-bold text-black dark:text-white"
+          title="More Information"
+        >
+          ?
+        </button>
+      </div>
+
       {/* Header */}
       <header className="text-center mb-8">
         <h1 className="text-4xl font-bold">Emotion Classifier</h1>
@@ -144,6 +160,55 @@ export default function Home() {
         </p>
       </header>
   
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg max-w-md w-full relative">
+            <h2 className="text-xl font-bold mb-2">Emotion Information</h2>
+            <h2 className="text-sm font-italic mb-2">The following are the range of possible emotions that can be evaluated using our dataset.</h2>
+            <div className="text-xs text-gray-700 dark:text-gray-200 grid grid-cols-2 gap-1">
+              <span>Admiration</span>
+              <span>Amusement</span>
+              <span>Anger</span>
+              <span>Annoyance</span>
+              <span>Approval</span>
+              <span>Caring</span>
+              <span>Confusion</span>
+              <span>Curiosity</span>
+              <span>Desire</span>
+              <span>Disappointment</span>
+              <span>Disapproval</span>
+              <span>Disgust</span>
+              <span>Embarrassment</span>
+              <span>Excitement</span>
+              <span>Fear</span>
+              <span>Gratitude</span>
+              <span>Grief</span>
+              <span>Joy</span>
+              <span>Love</span>
+              <span>Nervousness</span>
+              <span>Neutral</span>
+              <span>Optimism</span>
+              <span>Pride</span>
+              <span>Realization</span>
+              <span>Relief</span>
+              <span>Remorse</span>
+              <span>Sadness</span>
+              <span>Shame</span>
+              <span>Surprise</span>
+            </div>
+            <button
+              onClick={handleModalToggle}
+              className="absolute top-2 right-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white"
+              title="Close"
+            >
+              ✖
+            </button>
+          </div>
+        </div>
+      )}
+
+
       {/* Form and Prediction */}
       <div className="w-full max-w-2xl bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6">
         <form onSubmit={handleSubmit} className="relative w-full">
