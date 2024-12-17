@@ -9,30 +9,33 @@ conda install flask=0.12.2  (or) pip install Flask==0.12.2
 
 ### Project Structure
 This project has four major parts :
-1. model.py - This contains code fot our Machine Learning model to predict employee salaries absed on trainign data in 'hiring.csv' file.
-2. app.py - This contains Flask APIs that receives employee details through GUI or API calls, computes the precited value based on our model and returns it.
-3. template - This folder contains the HTML template (index.html) to allow user to enter employee detail and displays the predicted employee salary.
-4. static - This folder contains the css folder with style.css file which has the styling required for out index.html file.
+1. emotionClassifierModel.py - This contains code for our Machine Learning model to predict emotions based on training data related to text messages classified by emotions.
+2. application.py - This contains Flask APIs that receives employee details through GUI or API calls, computes the precited value based on our model and returns it.
 
-### Running the project
-1. Ensure that you are in the project home directory. Create the machine learning model by running below command from command prompt -
+### Training the model
+1. Ensure that you are in the project root directory. Create the machine learning model by running below command from command prompt -
 ```
-python model.py
+python emotionClassifierModel.py
 ```
-This would create a serialized version of our model into a file model.pkl
+This would create a serialized version of our model into three files, model.pkl, vectorizer.pkl and label_encoder.pkl.
 
-2. Run app.py using below command to start Flask API
+2. Run application.py using below command to start Flask API
 ```
 python app.py
 ```
 By default, flask will run on port 5000.
 
-3. Navigate to URL http://127.0.0.1:5000/ (or) http://localhost:5000
+3. Use node.js in the frontend to view the webpage, and enter text as required for evaluation.
 
-You should be able to view the homepage.
+### Contributing and Bug Reporting
 
-Enter valid numerical values in all 3 input boxes and hit Predict.
+If you encounter any bugs, issues, or have suggestions for improvement, please feel free to:
 
-If everything goes well, you should  be able to see the predcited salary vaule on the HTML page!
-check the output here: http://127.0.0.1:5000/predict
+1. **Open an issue**: Describe the problem, provide steps to reproduce it, and include any relevant screenshots or logs.
+2. **Submit a pull request**:  
+   - Fork the repository.  
+   - Create a new branch for your fix or feature.  
+   - Submit a pull request with a clear explanation of your changes.
+
+We appreciate all contributions to improve this project!
 
